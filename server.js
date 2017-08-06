@@ -11,9 +11,17 @@ const User   = require('./models/user'); // get our mongoose model
 //configuration
 const port = process.env.PORT || 3030; // used to create, sign, and verify tokens
 
+mongoose.Promise = global.Promise;
 mongoose.connect(config.database, {
   useMongoClient: true
 }); // connect to database
+
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  // we're connected!
+  console.log('connected to the db ja!');
+});
 
 app.set('superSecret', config.secret); // secret variable
 
@@ -28,7 +36,25 @@ app.use(morgan('dev'));
 //routes
 app.get('/', function (req, res) {
   res.send('Hello World!!!')
-})
+});
+
+app.get('/setup', function(req, res) {
+
+  // create a sample user
+  var firstUser = new User({ 
+    name: 'Jane Doe', 
+    password: 'doepass',
+    admin: true 
+  });
+
+  // save the sample user
+  firstUser.save(function(err) {
+    if (err) throw err;
+
+    console.log('User saved successfully');
+    res.json({ success: true });
+  });
+});
 
 //start the server
 app.listen(port, function () {
