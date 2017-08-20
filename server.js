@@ -61,7 +61,7 @@ app.get('/setup', function(req, res) {
 // get an instance of the router for api routes
 var apiRoutes = express.Router();
 
-// route to authenticate a user (POST http://localhost:8080/api/authenticate)
+// route to authenticate a user (POST http://localhost:3030/api/authenticate)
 apiRoutes.post('/authenticate', function(req, res) {
 
   // find the user
@@ -72,7 +72,9 @@ apiRoutes.post('/authenticate', function(req, res) {
     if (err) throw err;
 
     if (!user) {
-      res.json({ success: false, message: 'Authentication failed. User not found.' });
+      console.log('papapap', user);
+      res.status(401).send({ success: false, message: 'Authentication failed. Wrong username.' }); 
+
     } else if (user) {
 
       // check if password matches
@@ -126,12 +128,12 @@ apiRoutes.use(function(req, res, next) {
   }
 });
 
-// route to show a random message (GET http://localhost:8080/api/)
+// route to show a random message (GET http://localhost:3030/api/)
 apiRoutes.get('/', function(req, res) {
   res.json({ message: 'Welcome to the coolest API on earth!' });
 });
 
-// route to return all users (GET http://localhost:8080/api/users)
+// route to return all users (GET http://localhost:3030/api/users)
 apiRoutes.get('/users', function(req, res) {
   User.find({}, function(err, users) {
     res.json(users);
