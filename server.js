@@ -72,11 +72,9 @@ apiRoutes.post('/authenticate', function(req, res) {
     if (err) throw err;
 
     if (!user) {
-      console.log('papapap', user);
       res.status(401).send({ success: false, message: 'Authentication failed. Wrong username.' }); 
 
     } else if (user) {
-
       // check if password matches
       if (user.password != req.body.password) {
         res.json({ success: false, message: 'Authentication failed. Wrong password.' });
