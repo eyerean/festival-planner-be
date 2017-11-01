@@ -73,13 +73,11 @@ apiRoutes.post('/login', function(req, res) {
 
     if (!user) {
       res.status(401).send({ success: false, message: 'Authentication failed. Username is not found.' }); 
-
     } else if (user) {
       // check if password matches
       if (user.password != req.body.password) {
-        res.json({ success: false, message: 'Authentication failed. Wrong password.' });
+        res.status(401).send({ success: false, message: 'Authentication failed. Wrong password.' });
       } else {
-
         // if user is found and password is right
         // create a token
         var token = jwt.sign(user, app.get('superSecret'), {
