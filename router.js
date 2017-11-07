@@ -1,3 +1,5 @@
+const User = require('./models/user');
+
 module.exports = app => {
   app.get('/', (req, res) => {
     res.send('Hello World!!!')
@@ -7,6 +9,7 @@ module.exports = app => {
     // create a sample user
     var firstUser = new User({ 
       name: 'Jane Doe', 
+      email: 'jane.doe@example.com',
       password: 'doepass',
       admin: true 
     });
@@ -14,8 +17,7 @@ module.exports = app => {
     // save the sample user
     firstUser.save((err) =>{
       if (err) throw err;
-
-      console.log('User saved successfully');
+      console.log('First user saved successfully');
       res.json({ success: true });
     });
   });
