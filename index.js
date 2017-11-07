@@ -18,7 +18,7 @@ mongoose.connect(config.database, {
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
+db.once('open', () => {
   // we're connected!
   console.log('connected to the db ja!');
 });
@@ -33,12 +33,14 @@ app.use(bodyParser.json());
 // use morgan to log requests to the console
 app.use(morgan('dev'));
 
+// router(app);
+
 //routes
-app.get('/', function (req, res) {
+app.get('/', (req, res) => {
   res.send('Hello World!!!')
 });
 
-app.get('/setup', function(req, res) {
+app.get('/setup', (req, res) => {
 
   // create a sample user
   var firstUser = new User({ 
@@ -48,7 +50,7 @@ app.get('/setup', function(req, res) {
   });
 
   // save the sample user
-  firstUser.save(function(err) {
+  firstUser.save((err) =>{
     if (err) throw err;
 
     console.log('User saved successfully');
@@ -61,13 +63,13 @@ app.get('/setup', function(req, res) {
 // get an instance of the router for api routes
 var apiRoutes = express.Router();
 
-// route to lgoin with a user (POST http://localhost:3030/api/login)
-apiRoutes.post('/login', function(req, res) {
+// route to login with a user (POST http://localhost:3030/api/login)
+apiRoutes.post('/login', (req, res) => {
 
   // find the user
   User.findOne({
     name: req.body.name
-  }, function(err, user) {
+  }, (err, user) => {
 
     if (err) throw err;
 
@@ -99,7 +101,7 @@ apiRoutes.post('/login', function(req, res) {
 });
 
 // route middleware to verify a token
-apiRoutes.use(function(req, res, next) {
+apiRoutes.use((req, res, next) => {
   // check header or url parameters or post parameters for token
   var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
@@ -126,21 +128,25 @@ apiRoutes.use(function(req, res, next) {
 });
 
 // route to show a random message (GET http://localhost:3030/api/)
-apiRoutes.get('/', function(req, res) {
+apiRoutes.get('/', (req, res) => {
   res.json({ message: 'Welcome to the coolest API on earth!' });
 });
 
 // route to return all users (GET http://localhost:3030/api/users)
-apiRoutes.get('/users', function(req, res) {
-  User.find({}, function(err, users) {
+apiRoutes.get('/users', (req, res) => {
+  User.find({}, (err, users) => {
     res.json(users);
   });
-});   
+}); 
+
+// apiRoutes.post('/test', function(req, res) {
+//   res.req
+// })  
 
 // apply the routes to our application with the prefix /api
 app.use('/api', apiRoutes);
 
 //start the server
-app.listen(port, function () {
-  console.log('Festival Planner listening on port 3030!')
-})
+app.listen(port, () => {
+  console.log('FestivalPlanner server listening on port 3030!')
+});
