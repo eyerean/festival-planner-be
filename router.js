@@ -1,8 +1,22 @@
 module.exports = app => {
-  app.get('/', requireAuth, (req, res) => {
-    res.send({ hi: 'there'});
+  app.get('/', (req, res) => {
+    res.send('Hello World!!!')
   });
-  app.post('/signin', requireSignin, Authentication.signin);
-  app.post('/signup', Authentication.signup);
-};
 
+  app.get('/setup', (req, res) => {
+    // create a sample user
+    var firstUser = new User({ 
+      name: 'Jane Doe', 
+      password: 'doepass',
+      admin: true 
+    });
+
+    // save the sample user
+    firstUser.save((err) =>{
+      if (err) throw err;
+
+      console.log('User saved successfully');
+      res.json({ success: true });
+    });
+  });
+};

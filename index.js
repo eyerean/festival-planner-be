@@ -3,8 +3,9 @@ const app = express()
 const bodyParser  = require('body-parser');
 const morgan      = require('morgan');
 const mongoose    = require('mongoose');
-
 const jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
+
+const router = require('./router');
 const config = require('./config'); // get our config file
 const User   = require('./models/user'); // get our mongoose model
 
@@ -33,30 +34,8 @@ app.use(bodyParser.json());
 // use morgan to log requests to the console
 app.use(morgan('dev'));
 
-// router(app);
-
-//routes
-app.get('/', (req, res) => {
-  res.send('Hello World!!!')
-});
-
-app.get('/setup', (req, res) => {
-
-  // create a sample user
-  var firstUser = new User({ 
-    name: 'Jane Doe', 
-    password: 'doepass',
-    admin: true 
-  });
-
-  // save the sample user
-  firstUser.save((err) =>{
-    if (err) throw err;
-
-    console.log('User saved successfully');
-    res.json({ success: true });
-  });
-});
+// routes
+router(app);
 
 // API routes
 
