@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 const Authentication = require('./controllers/authentication');
+const Festivals = require('./controllers/festivals');
 const User = require('./models/user');
+const Festival = require('./models/festival');
 
 module.exports = (api, app) => {
   // route to login with a user (POST http://localhost:3030/api/login)
@@ -16,12 +18,20 @@ module.exports = (api, app) => {
     res.json({ message: 'Welcome to the coolest API on earth!' });
   });
 
-  // route to return all users (GET http://localhost:3030/api/users)
+  // get all users (GET http://localhost:3030/api/users)
   api.get('/users', (req, res) => {
     User.find({}, (err, users) => {
       res.json(users);
     });
   });
+
+  api.get('/festivals', (req, res) => {
+    Festival.find({}, (err, festivals) => {
+      res.json(festivals);
+    });
+  });
+
+  api.post('/festivals', Festivals.create);
 
   // apply the routes to our application with the prefix /api
   app.use('/api', api);
