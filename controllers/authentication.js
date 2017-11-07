@@ -2,6 +2,12 @@ const jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 const User = require('../models/user');
 const config = require('../config');
 
+const tokenForUser = user => {
+  return jwt.sign(user, config.secret, {
+          expiresIn : '24h' // expires in 24 hours
+        });
+};
+
 exports.login = (req, res) => {
   // find the user
   User.findOne({
@@ -18,9 +24,7 @@ exports.login = (req, res) => {
       } else {
         // if user is found and password is right
         // create a token
-        var token = jwt.sign(user, config.secret, {
-          expiresIn : '24h' // expires in 24 hours
-        });
+        var token = tokenForUser(user);
 
         // return the information including token as JSON
         res.json({
