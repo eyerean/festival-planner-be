@@ -1,39 +1,10 @@
 const jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
+const Authentication = require('./controllers/authentication');
 const User = require('./models/user'); // get our mongoose model
 
 module.exports = (api, app) => {
   // route to login with a user (POST http://localhost:3030/api/login)
-  api.post('/login', (req, res) => {
-    // find the user
-    User.findOne({
-      name: req.body.name
-    }, (err, user) => {
-      if (err) throw err;
-
-      if (!user) {
-        res.status(401).send({ success: false, message: 'Authentication failed. Username is not found.' }); 
-      } else if (user) {
-        // check if password matches
-        if (user.password != req.body.password) {
-          res.status(401).send({ success: false, message: 'Authentication failed. Wrong password.' });
-        } else {
-          // if user is found and password is right
-          // create a token
-          var token = jwt.sign(user, app.get('superSecret'), {
-            expiresIn : '24h' // expires in 24 hours
-          });
-
-          // return the information including token as JSON
-          res.json({
-            success: true,
-            message: 'Enjoy your token!',
-            user: user.name,
-            token: token
-          });
-        }
-      }
-    });
-  });
+  api.post('/login', Authentication.login);
 
   // route middleware to verify a token
   api.use((req, res, next) => {
@@ -56,8 +27,8 @@ module.exports = (api, app) => {
       // if there is no token
       // return an error
       return res.status(403).send({ 
-          success: false, 
-          message: 'No token provided.' 
+        success: false, 
+        message: 'No token provided.' 
       });
     }
   });
