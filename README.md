@@ -1,10 +1,10 @@
 # Festival Planner App
 _The backend part_
 
-For the time being the official mongo database linked with this project is private, but you can run one in localhost and update the settings of the BE (details in the BE repo).
+For the time being the official mongo database linked with this project is private, but you can run one in localhost and add a `config.js` file.
 
 ### Setup
-Run a local mongo database.
+Create and run a local mongo database.
 
 Create a config.js file like this one:
 
