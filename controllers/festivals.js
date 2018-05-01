@@ -2,9 +2,10 @@ const Festival = require('../models/festival');
 
 exports.create = (req, res, next) => {
   const name = req.body.name;
-  const fromDate = req.body.fromDate;
-  const toDate = req.body.toDate;
+  const startDate = req.body.startDate;
+  const endDate = req.body.endDate;
   const status = req.body.status;
+  const desc = req.body.desc;
 
   if(!name){
     return res.status(422).send({ error: 'You must provide a name for the festival'});
@@ -18,8 +19,9 @@ exports.create = (req, res, next) => {
 
     const festival = new Festival({
       name: name,
-      fromDate: fromDate,
-      toDate: toDate,
+      startDate: startDate,
+      endDate: endDate,
+      description: desc,
       status: status
     });
 

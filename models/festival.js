@@ -3,8 +3,8 @@ const Schema = mongoose.Schema;
 
 const festivalSchema = new Schema({
   name: String,
-  fromDate: String, // (ISOString)
-  toDate: String, // (ISOString)
+  startDate: String, // (ISOString)
+  endDate: String, // (ISOString)
   description: String,
   status: String
 });
