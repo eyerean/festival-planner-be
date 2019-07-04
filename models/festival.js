@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const stagesSchema = new Schema({
+const stageSchema = new Schema({
   label: String,
   stageOrder: Number
 });
 
-const artistsSchema = new Schema({
+const artistSchema = new Schema({
   label: String,
   amountOfTimeslots: Number,
   stageOrder: Number,
@@ -15,21 +15,21 @@ const artistsSchema = new Schema({
   day: String,
 });
 
-const daysSchema = new Schema({
+const daySchema = new Schema({
   label: String,
   dayOrder: Number,
-  stagesCols: [stagesSchema],
+  stagesCols: [stageSchema],
 });
 
-const timeslotsSchema = new Schema({
+const timeslotSchema = new Schema({
   timeslotOrder: Number,
   timeslotStart: String,
-  artistsCols: [artistsSchema]
+  artistsCols: [artistSchema]
 });
 
 const festivalDetailsSchema = new Schema({
-  days: [daysSchema],
-  timeslots: [timeslotsSchema]
+  days: [daySchema], // [{ type: ObjectId, ref: 'Day' }] ???
+  timeslots: [timeslotSchema]
 });
 
 const festivalSchema = new Schema({
@@ -41,5 +41,6 @@ const festivalSchema = new Schema({
   details: festivalDetailsSchema
 });
 
-const ModelClass = mongoose.model('Festival', festivalSchema);
-module.exports = ModelClass;
+// const Day = mongoose.model('Day', daySchema);
+const FestivalModel = mongoose.model('Festival', festivalSchema);
+module.exports = FestivalModel;
