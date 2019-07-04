@@ -22,7 +22,8 @@ exports.create = (req, res, next) => {
       startDate: startDate,
       endDate: endDate,
       description: desc,
-      status: status
+      status: status,
+      details: {} // on create this is empty
     });
 
     festival.save(err => {

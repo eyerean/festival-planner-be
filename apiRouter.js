@@ -31,6 +31,12 @@ module.exports = (api, app) => {
     });
   });
 
+  api.get('/festivals/:id', (req, res) => {
+    Festival.findById(req.params.id, (err, festival) => {
+      res.json(festival);
+    });
+  });
+
   api.post('/festivals', Festivals.create);
 
   // apply the routes to our application with the prefix /api
