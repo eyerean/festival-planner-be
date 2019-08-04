@@ -1,4 +1,23 @@
+const moment = require('moment');
 const Festival = require('../models/festival');
+
+function makeDefaultDays(startDate, endDate){
+  const a = moment(endDate, 'DD-MM-YYYY');
+  const b = moment(startDate, 'DD-MM-YYYY');
+  const amountOfDays = a.diff(b, 'days') + 1;
+  
+  const days = [];
+  
+  for(var i=0; i<amountOfDays; i++){
+    days.push({
+      label: moment(startDate, 'DD-MM-YYYY').add(i, 'days').format('dddd, DD MMM'),
+      dayOrder: i + 1,
+      stages: []
+    });
+  }
+  
+  return days;
+};
 
 exports.create = (req, res, next) => {
   const name = req.body.name;
@@ -6,8 +25,9 @@ exports.create = (req, res, next) => {
   const endDate = req.body.endDate;
   const status = req.body.status;
   const desc = req.body.desc;
+
   const detailsDefault = {
-    days: [],
+    days: makeDefaultDays(startDate, endDate),
     timeslots: []
   };
   
@@ -89,7 +109,7 @@ exports.create = (req, res, next) => {
       endDate: endDate,
       description: desc,
       status: status,
-      details: detailsMock //{} // on create this is empty
+      details: detailsDefault
     });
 
     festival.save(err => {
