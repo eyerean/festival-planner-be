@@ -15,8 +15,7 @@ exports.create = (req, res, next) => {
     days: [{
       label: 'Saturday',
       dayOrder: 1,
-      stageCols: [
-        {
+      stagesCols: [{
           label: 'main stage',
           stageOrder: 1,
         },
@@ -24,7 +23,7 @@ exports.create = (req, res, next) => {
           label: 'stage abc',
           stageOrder: 2,
         },
-      ]
+      ],
     }],
     timeslots: [
       {
