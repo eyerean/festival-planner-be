@@ -36,8 +36,15 @@ module.exports = (api, app) => {
       res.json(festival);
     });
   });
+  
+  api.delete('/festivals/:id', (req, res) => {
+    Festival.findByIdAndDelete(req.params.id, (err, festival) => {
+      res.json({ message: `Successfully deleted festival "${festival.name}"`})
+    });
+  });
 
   api.post('/festivals', Festivals.create);
+
 
   // apply the routes to our application with the prefix /api
   app.use('/api', api);
