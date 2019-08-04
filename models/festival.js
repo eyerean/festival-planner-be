@@ -28,19 +28,20 @@ const timeslotSchema = new Schema({
 });
 
 const festivalDetailsSchema = new Schema({
-  days: [daySchema], // [{ type: ObjectId, ref: 'Day' }] ???
+  days: [daySchema], 
   timeslots: [timeslotSchema]
 });
 
 const festivalSchema = new Schema({
   name: String,
-  startDate: String, // (ISOString)
-  endDate: String, // (ISOString)
+  startDate: String,
+  startTime: String,
+  endDate: String,
+  endTime: String,
   description: String,
   status: String,
   details: festivalDetailsSchema
 });
 
-// const Day = mongoose.model('Day', daySchema);
 const FestivalModel = mongoose.model('Festival', festivalSchema);
 module.exports = FestivalModel;

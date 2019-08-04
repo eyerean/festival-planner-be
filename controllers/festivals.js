@@ -12,23 +12,44 @@ function makeDefaultDays(startDate, endDate){
     days.push({
       label: moment(startDate, 'DD-MM-YYYY').add(i, 'days').format('dddd, DD MMM'),
       dayOrder: i + 1,
-      stages: []
+      stagesCols: []
     });
   }
   
   return days;
 };
 
+function makeDefaultTimeslots(startTime, endTime, timeslot){
+  const a = moment(endTime, 'HH:mm');
+  const b = moment(startTime, 'HH:mm');
+  const amountOfΤimeslots = a.diff(b, timeslot);
+  
+  const timeslots = [];
+  
+  for(var i=0; i<amountOfΤimeslots; i++){
+    timeslots.push({
+      timeslotStart: moment(startTime, 'HH:mm').add(i, 'hour').format('HH:mm'),
+      timeslotOrder: i + 1,
+      artistsCols: []
+    });
+  }
+  
+  return timeslots;
+};
+
 exports.create = (req, res, next) => {
   const name = req.body.name;
   const startDate = req.body.startDate;
+  const startTime = req.body.startTime;
   const endDate = req.body.endDate;
+  const endTime = req.body.endTime;
+  const timeslot = req.body.timeslot;
   const status = req.body.status;
   const desc = req.body.desc;
 
   const detailsDefault = {
     days: makeDefaultDays(startDate, endDate),
-    timeslots: []
+    timeslots: makeDefaultTimeslots(startTime, endTime, timeslot)
   };
   
   const detailsMock = {
@@ -106,7 +127,10 @@ exports.create = (req, res, next) => {
     const festival = new Festival({
       name: name,
       startDate: startDate,
+      startTime: startTime,
       endDate: endDate,
+      endTime: endTime,
+      timeslot: timeslot,
       description: desc,
       status: status,
       details: detailsDefault
