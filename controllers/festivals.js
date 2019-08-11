@@ -37,7 +37,7 @@ function makeDefaultTimeslots(startTime, endTime, timeslot){
   return timeslots;
 };
 
-exports.create = (req, res, next) => {
+exports.create = (req, res) => {
   const name = req.body.name;
   const startDate = req.body.startDate;
   const startTime = req.body.startTime;
@@ -143,4 +143,47 @@ exports.create = (req, res, next) => {
   });
 };
 
+exports.update = (req, res) => {
+  Festival.findById(req.params.id, (err, foundFest) => {
+    if(err) throw err;
+    if(!foundFest) {
+      return res.status(404).send({
+        error: `Festival with id ${festiId} not found.`,
+      })
+    }
+
+    if(req.body.name){
+      foundFest.name = req.body.name;
+    }
+    if(req.body.startDate){
+      foundFest.startDate = req.body.startDate;
+    }
+    if(req.body.startTime){
+      foundFest.startTime = req.body.startTime;
+    }
+    if(req.body.endDate){
+      foundFest.endDate = req.body.endDate;
+    }
+    if(req.body.endTime){
+      foundFest.endTime = req.body.endTime;
+    }
+    if(req.body.timeslot){
+      foundFest.timeslot = req.body.timeslot;
+    }
+    if(req.body.status){
+      foundFest.status = req.body.status;
+    }
+    if(req.body.desc){
+      foundFest.desc = req.body.desc;
+    }
+    if(req.body.details){
+      foundFest.details = req.body.details;
+    }
+
+    foundFest.save((err, updatedFest) => {
+      if(err) throw err;
+      res.json({ success: 'Festival updated successfuly!', festival: updatedFest });
+    });
+  });
+};
 
