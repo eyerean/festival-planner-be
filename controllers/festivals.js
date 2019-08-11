@@ -45,7 +45,7 @@ exports.create = (req, res) => {
   const endTime = req.body.endTime;
   const timeslot = req.body.timeslot;
   const status = req.body.status;
-  const desc = req.body.desc;
+  const description = req.body.description;
 
   const detailsDefault = {
     days: makeDefaultDays(startDate, endDate),
@@ -131,7 +131,7 @@ exports.create = (req, res) => {
       endDate: endDate,
       endTime: endTime,
       timeslot: timeslot,
-      description: desc,
+      description: description,
       status: status,
       details: detailsDefault
     });
@@ -173,8 +173,8 @@ exports.update = (req, res) => {
     if(req.body.status){
       foundFest.status = req.body.status;
     }
-    if(req.body.desc){
-      foundFest.desc = req.body.desc;
+    if(req.body.description){
+      foundFest.description = req.body.description;
     }
     if(req.body.details){
       foundFest.details = req.body.details;
