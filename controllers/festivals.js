@@ -52,67 +52,67 @@ exports.create = (req, res) => {
     timeslots: makeDefaultTimeslots(startTime, endTime, timeslot)
   };
   
-  const detailsMock = {
-    days: [{
-      label: 'Saturday',
-      dayOrder: 1,
-      stagesCols: [{
-          label: 'main stage',
-          stageOrder: 1,
-        },
-        {
-          label: 'stage abc',
-          stageOrder: 2,
-        },
-      ],
-    }],
-    timeslots: [
-      {
-        timeslotOrder: 0,
-        timeslotStart: '15:00',
-        artistsCols: [
-          {
-            label: 'band A',
-            amountOfTimeslots: 1,
-            stageOrder: 1,
-            stage: 'main stage',
-            dayOrder: 1,
-            day: 'saturday',
-          },
-          {
-            label: '-',
-            amountOfTimeslots: 1,
-            stageOrder: 2,
-            stage: 'stage abc',
-            dayOrder: 1,
-            day: 'saturday',
-          },
-        ],
-      },
-      {
-        timeslotOrder: 1,
-        timeslotStart: '16:00',
-        artistsCols: [
-          {
-            label: 'band ZZ',
-            amountOfTimeslots: 2,
-            stageOrder: 1,
-            stage: 'main stage',
-            dayOrder: 1,
-            day: 'saturday',
-          },
-          {
-            label: 'famous band',
-            amountOfTimeslots: 1,
-            stageOrder: 2,
-            stage: 'stage abc',
-            dayOrder: 1,
-            day: 'saturday',
-          },
-        ],
-      },
-    ]
-  }
+  // const detailsMock = {
+  //   days: [{
+  //     label: 'Saturday',
+  //     dayOrder: 1,
+  //     stagesCols: [{
+  //         label: 'main stage',
+  //         stageOrder: 1,
+  //       },
+  //       {
+  //         label: 'stage abc',
+  //         stageOrder: 2,
+  //       },
+  //     ],
+  //   }],
+  //   timeslots: [
+  //     {
+  //       timeslotOrder: 0,
+  //       timeslotStart: '15:00',
+  //       artistsCols: [
+  //         {
+  //           label: 'band A',
+  //           amountOfTimeslots: 1,
+  //           stageOrder: 1,
+  //           stage: 'main stage',
+  //           dayOrder: 1,
+  //           day: 'saturday',
+  //         },
+  //         {
+  //           label: '-',
+  //           amountOfTimeslots: 1,
+  //           stageOrder: 2,
+  //           stage: 'stage abc',
+  //           dayOrder: 1,
+  //           day: 'saturday',
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       timeslotOrder: 1,
+  //       timeslotStart: '16:00',
+  //       artistsCols: [
+  //         {
+  //           label: 'band ZZ',
+  //           amountOfTimeslots: 2,
+  //           stageOrder: 1,
+  //           stage: 'main stage',
+  //           dayOrder: 1,
+  //           day: 'saturday',
+  //         },
+  //         {
+  //           label: 'famous band',
+  //           amountOfTimeslots: 1,
+  //           stageOrder: 2,
+  //           stage: 'stage abc',
+  //           dayOrder: 1,
+  //           day: 'saturday',
+  //         },
+  //       ],
+  //     },
+  //   ]
+  // }
 
   if(!name){
     return res.status(422).send({ error: 'You must provide a name for the festival'});

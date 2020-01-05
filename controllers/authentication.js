@@ -16,13 +16,13 @@ exports.login = (req, res) => {
     if (err) throw err;
 
     if (!user) {
-      return res.status(401).send({ success: false, message: 'Authentication failed. User is not found.' }); 
+      return res.status(401).send({ success: false, message: 'Authentication failed.' }); 
     } else if (user) {
       // check if passwords match
       user.comparePassword(req.body.password, (err, isMatch) => {
         if (err) throw err;
         if(!isMatch) {
-          return res.status(401).send({ success: false, message: 'Authentication failed. Wrong password.' });
+          return res.status(401).send({ success: false, message: 'Authentication failed.' });
         }
         const token = tokenForUser(user);
         return res.json({
