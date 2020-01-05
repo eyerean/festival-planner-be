@@ -10,7 +10,7 @@ const userSchema = new Schema({
   admin: Boolean
 });
 
-//On save hook, encrypt password
+// On save hook, encrypt password
 userSchema.pre('save', function(next) {
   const user = this;
   bcrypt.genSalt(10, function(err, salt) {
@@ -34,7 +34,7 @@ userSchema.methods.comparePassword = function(candidatePassword, callback) {
 };
 
 // create the model class
-const ModelClass = mongoose.model('User', userSchema);
+const UserModel = mongoose.model('User', userSchema);
 
-//export the model
-module.exports = ModelClass;
+// export the model
+module.exports = UserModel;
