@@ -2,7 +2,7 @@ const User = require('./models/user');
 
 module.exports = app => {
   app.get('/', (req, res) => {
-    res.send('Hello World!!!')
+    res.send('Backend server is running!')
   });
 
   app.get('/setup', (req, res) => {

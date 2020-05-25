@@ -15,7 +15,7 @@ module.exports = (api, app) => {
 
   // route to show a random message (GET http://localhost:3030/api/)
   api.get('/', (req, res) => {
-    res.json({ message: 'Welcome to the coolest API on earth!' });
+    res.json({ message: 'Welcome to FestivalPlanner\'s API' });
   });
 
   // get all users (GET http://localhost:3030/api/users)
